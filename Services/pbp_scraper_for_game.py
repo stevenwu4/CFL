@@ -111,5 +111,5 @@ if __name__ == '__main__':
     url = args['--url']
     final_name = args['--destination']
 
-    game_rows = get_game_rows_and_info_from_url(url)
+    game_rows = get_game_rows_from_url(url)
     write_to_csv(game_rows, final_name)
