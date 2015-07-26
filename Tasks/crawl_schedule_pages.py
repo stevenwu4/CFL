@@ -14,8 +14,6 @@ For any given season, (using 2013 as an example)
 Usage:
     crawl_schedule_pages.py (--season=<sn>) (--mkdirs|--get_schedules|--get_pbps)
 """
-
-import pdb
 import os
 import time
 from bs4 import BeautifulSoup
@@ -111,7 +109,7 @@ def collect_pbps_for_teams(season):
     list_of_cities = get_teams_for_given_season(season)
     SAVED_PATH = os.path.join(PATH_TO_DATA, season)
     print 'Beginning play by play collection for {0}'.format(season)
-    list_of_cities = ['Ottawa']
+
     for city in list_of_cities:
         print '{0}\n--------'.format(city)
         path_to_city_dir = os.path.join(SAVED_PATH, city)
@@ -136,6 +134,7 @@ def collect_pbps_for_teams(season):
 if __name__ == '__main__':
     args = docopt(__doc__)
     season = args['--season']
+    mkdirs = args['--mkdirs']
     get_schedules = args['--get_schedules']
     get_pbps = args['--get_pbps']
 
