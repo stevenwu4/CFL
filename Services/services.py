@@ -15,17 +15,6 @@ def get_teams_for_given_season(season):
 
 
 def convert_csv_to_list(path_to_csv):
-    """
-    Input:
-    0. path_to_csv: 
-
-    Description:
-    - This function reads the file and returns a list of lists,
-    each inner list having 4 indices for Time, Away, Score, Home
-
-    Returns: list
-    0. list_of_game_rows: the list of game rows
-    """
     with open(path_to_csv, 'rU') as f:
         reader = csv.reader(f)
         list_of_game_rows = [row for row in reader]
