@@ -127,7 +127,9 @@ def collect_pbps_for_teams(season):
             path_to_pbp_csv = os.path.join(
                 path_to_city_dir, 'Csvs', name+'.csv'
             )
-            game_rows = get_game_rows_from_url(url, path_to_pbp_source)
+            game_rows = get_game_rows_from_url(
+                url, save_to_dest=path_to_pbp_source
+            )
             write_to_csv(game_rows, path_to_pbp_csv)
 
 
