@@ -20,8 +20,8 @@ from bs4 import BeautifulSoup
 from docopt import docopt
 from subprocess import call
 from Services.constants import PATH_TO_DATA, BASE_CFL_URL
-from Services.services import get_teams_for_given_season
-from Services.pbp_scraper_for_game import get_game_rows_from_url, write_to_csv
+from Services.services import get_teams_for_given_season, write_to_csv
+from Services.pbp_scraper_for_game import get_game_rows_from_url
 
 
 def create_data_dirs(season):
