@@ -14,16 +14,14 @@ For any given season, (using 2013 as an example)
 Usage:
     crawl_schedule_pages.py (--season=<sn>) (--mkdirs|--get_schedules|--get_pbps)
 """
-
-import pdb
 import os
 import time
 from bs4 import BeautifulSoup
 from docopt import docopt
 from subprocess import call
 from Services.constants import PATH_TO_DATA, BASE_CFL_URL
-from Services.services import get_teams_for_given_season
-from Services.pbp_scraper_for_game import get_game_rows_from_url, write_to_csv
+from Services.services import get_teams_for_given_season, write_to_csv
+from Services.pbp_scraper_for_game import get_game_rows_from_url
 
 
 def create_data_dirs(season):
@@ -46,16 +44,16 @@ def get_schedule_pages_map(season):
     if season not in ('2013', '2014'):
         raise Exception('No play-by-play before 2013, 2014')
     # Before 2013, no play by play for games AFAIK
-    BC_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/1'.format(season)
-    CAL_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/2'.format(season)
-    EDM_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/3'.format(season)
-    SAS_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/4'.format(season)
-    WIN_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/5'.format(season)
-    HAM_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/6'.format(season)
-    TOR_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/7'.format(season)
+    BC_SCHEDULE_PAGE = '{0}/schedule/year/{1}/1'.format(BASE_CFL_URL, season)
+    CAL_SCHEDULE_PAGE = '{0}/schedule/year/{1}/2'.format(BASE_CFL_URL, season)
+    EDM_SCHEDULE_PAGE = '{0}/schedule/year/{1}/3'.format(BASE_CFL_URL, season)
+    SAS_SCHEDULE_PAGE = '{0}/schedule/year/{1}/4'.format(BASE_CFL_URL, season)
+    WIN_SCHEDULE_PAGE = '{0}/schedule/year/{1}/5'.format(BASE_CFL_URL, season)
+    HAM_SCHEDULE_PAGE = '{0}/schedule/year/{1}/6'.format(BASE_CFL_URL, season)
+    TOR_SCHEDULE_PAGE = '{0}/schedule/year/{1}/7'.format(BASE_CFL_URL, season)
     # Ottawa's 2013 page doesn't exist
-    OTT_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/65'.format(season)
-    MTL_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/9'.format(season)
+    OTT_SCHEDULE_PAGE = '{0}/schedule/year/{1}/65'.format(BASE_CFL_URL, season)
+    MTL_SCHEDULE_PAGE = '{0}/schedule/year/{1}/9'.format(BASE_CFL_URL, season)
     SCHEDULE_PAGES_MAP = {
         'BC': BC_SCHEDULE_PAGE,
         'Calgary': CAL_SCHEDULE_PAGE,
@@ -111,7 +109,7 @@ def collect_pbps_for_teams(season):
     list_of_cities = get_teams_for_given_season(season)
     SAVED_PATH = os.path.join(PATH_TO_DATA, season)
     print 'Beginning play by play collection for {0}'.format(season)
-    list_of_cities = ['Ottawa']
+
     for city in list_of_cities:
         print '{0}\n--------'.format(city)
         path_to_city_dir = os.path.join(SAVED_PATH, city)
@@ -129,13 +127,16 @@ def collect_pbps_for_teams(season):
             path_to_pbp_csv = os.path.join(
                 path_to_city_dir, 'Csvs', name+'.csv'
             )
-            game_rows = get_game_rows_from_url(url, path_to_pbp_source)
+            game_rows = get_game_rows_from_url(
+                url, save_to_dest=path_to_pbp_source
+            )
             write_to_csv(game_rows, path_to_pbp_csv)
 
 
 if __name__ == '__main__':
     args = docopt(__doc__)
     season = args['--season']
+    mkdirs = args['--mkdirs']
     get_schedules = args['--get_schedules']
     get_pbps = args['--get_pbps']
 

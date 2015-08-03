@@ -8,9 +8,7 @@ for all the games in a given season
 Usage:
     store_csv_info_to_db.py (--season=<sn>)
 """
-
 import os
-import time
 from pymongo import MongoClient
 from datetime import datetime
 from docopt import docopt
@@ -41,7 +39,6 @@ def get_info_from_game(season, city, csv):
 
 
 def run_storage_of_games_on_season(season, list_of_cities):
-    start_time = time.time()
     client = MongoClient()
     season_db = client['CFL_'+season]
     games_collection = season_db['games']
