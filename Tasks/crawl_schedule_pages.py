@@ -44,16 +44,16 @@ def get_schedule_pages_map(season):
     if season not in ('2013', '2014'):
         raise Exception('No play-by-play before 2013, 2014')
     # Before 2013, no play by play for games AFAIK
-    BC_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/1'.format(season)
-    CAL_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/2'.format(season)
-    EDM_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/3'.format(season)
-    SAS_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/4'.format(season)
-    WIN_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/5'.format(season)
-    HAM_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/6'.format(season)
-    TOR_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/7'.format(season)
+    BC_SCHEDULE_PAGE = '{0}/schedule/year/{1}/1'.format(BASE_CFL_URL, season)
+    CAL_SCHEDULE_PAGE = '{0}/schedule/year/{1}/2'.format(BASE_CFL_URL, season)
+    EDM_SCHEDULE_PAGE = '{0}/schedule/year/{1}/3'.format(BASE_CFL_URL, season)
+    SAS_SCHEDULE_PAGE = '{0}/schedule/year/{1}/4'.format(BASE_CFL_URL, season)
+    WIN_SCHEDULE_PAGE = '{0}/schedule/year/{1}/5'.format(BASE_CFL_URL, season)
+    HAM_SCHEDULE_PAGE = '{0}/schedule/year/{1}/6'.format(BASE_CFL_URL, season)
+    TOR_SCHEDULE_PAGE = '{0}/schedule/year/{1}/7'.format(BASE_CFL_URL, season)
     # Ottawa's 2013 page doesn't exist
-    OTT_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/65'.format(season)
-    MTL_SCHEDULE_PAGE = 'http://www.cfl.ca/schedule/year/{0}/9'.format(season)
+    OTT_SCHEDULE_PAGE = '{0}/schedule/year/{1}/65'.format(BASE_CFL_URL, season)
+    MTL_SCHEDULE_PAGE = '{0}/schedule/year/{1}/9'.format(BASE_CFL_URL, season)
     SCHEDULE_PAGES_MAP = {
         'BC': BC_SCHEDULE_PAGE,
         'Calgary': CAL_SCHEDULE_PAGE,
