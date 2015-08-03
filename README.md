@@ -1,2 +1,3 @@
 # CFL
-http://stevenwu4.github.io/bs4-selenium-cfl/
+http://stevenwu.info/blog_posts/cfl-part1-bs4-selenium/
+
