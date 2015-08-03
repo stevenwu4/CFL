@@ -9,12 +9,12 @@ Usage:
 """
 
 import time
-import csv
 from docopt import docopt
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
 from Services.constants import PLAYBYPLAY_BTN_XPATH
+from Services.services import write_to_csv
 
 
 def get_game_rows_from_url(url, save_to_dest=None):
@@ -93,23 +93,10 @@ def get_game_rows_from_url(url, save_to_dest=None):
     return list_of_game_rows
 
 
-def write_to_csv(list_of_game_rows, name_of_csv):
-    with open(name_of_csv, 'wb') as f:
-        writer = csv.writer(f)
-        for row in list_of_game_rows:
-            writer.writerow(row)
-    print (
-        'csv {0} conversion successful\n'
-        'number of rows: {1}'
-        .format(name_of_csv, len(list_of_game_rows))
-    )
-    print '-'*20
-
-
 if __name__ == '__main__':
     args = docopt(__doc__)
     url = args['--url']
     final_name = args['--destination']
 
-    game_rows = get_game_rows_and_info_from_url(url)
+    game_rows = get_game_rows_from_url(url)
     write_to_csv(game_rows, final_name)
