@@ -96,7 +96,7 @@ def get_game_rows_from_url(url, save_to_dest=None):
 if __name__ == '__main__':
     args = docopt(__doc__)
     url = args['--url']
-    final_name = args['--destination']
+    filename = args['--filename']
 
     game_rows = get_game_rows_from_url(url)
-    write_to_csv(game_rows, final_name)
+    write_to_csv(game_rows, filename)
