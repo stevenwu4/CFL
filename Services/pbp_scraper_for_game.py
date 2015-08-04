@@ -2,10 +2,12 @@
 This file is used as a module for our programs in Tasks, but can be used
 from the cmd line to get the csv for a given URL as well
 
-eg: PYTHONPATH=. python pbp_scraper_for_game.py --url=http://www.cfl.ca/statistics/statsGame/id/11805 --final_name=blah.csv
+eg: PYTHONPATH=. python pbp_scraper_for_game.py
+--url=http://www.cfl.ca/statistics/statsGame/id/11805
+--filename=blah.csv
 
 Usage:
-    pbp_scraper_for_game.py (--url=<u>) (--final_name=<fn>)
+    pbp_scraper_for_game.py (--url=<u>) (--filename=<fn>)
 """
 
 import time
@@ -96,7 +98,7 @@ def get_game_rows_from_url(url, save_to_dest=None):
 if __name__ == '__main__':
     args = docopt(__doc__)
     url = args['--url']
-    final_name = args['--destination']
+    filename = args['--filename']
 
     game_rows = get_game_rows_from_url(url)
-    write_to_csv(game_rows, final_name)
+    write_to_csv(game_rows, filename)
