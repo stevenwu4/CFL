@@ -1,6 +1,7 @@
 """
-By nature of how crawl_schedule_pages.py works, there will be two copies of each game
-that happened in a season; one in the home team's folder, one in the away team's folder.
+By nature of how crawl_schedule_pages.py works, there will be two copies of
+each game that happened in a season; one in the home team's folder,
+one in the away team's folder.
 
 This script will create a singular game representation in MongoDB
 for all the games in a given season
