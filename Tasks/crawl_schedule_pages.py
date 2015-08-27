@@ -44,29 +44,30 @@ def get_schedule_pages_map(season):
     if season not in ('2013', '2014'):
         raise Exception('No play-by-play before 2013, 2014')
     # Before 2013, no play by play for games AFAIK
-    BC_SCHEDULE_PAGE = '{0}/schedule/year/{1}/1'.format(BASE_CFL_URL, season)
-    CAL_SCHEDULE_PAGE = '{0}/schedule/year/{1}/2'.format(BASE_CFL_URL, season)
-    EDM_SCHEDULE_PAGE = '{0}/schedule/year/{1}/3'.format(BASE_CFL_URL, season)
-    SAS_SCHEDULE_PAGE = '{0}/schedule/year/{1}/4'.format(BASE_CFL_URL, season)
-    WIN_SCHEDULE_PAGE = '{0}/schedule/year/{1}/5'.format(BASE_CFL_URL, season)
-    HAM_SCHEDULE_PAGE = '{0}/schedule/year/{1}/6'.format(BASE_CFL_URL, season)
-    TOR_SCHEDULE_PAGE = '{0}/schedule/year/{1}/7'.format(BASE_CFL_URL, season)
-    # Ottawa's 2013 page doesn't exist
-    OTT_SCHEDULE_PAGE = '{0}/schedule/year/{1}/65'.format(BASE_CFL_URL, season)
-    MTL_SCHEDULE_PAGE = '{0}/schedule/year/{1}/9'.format(BASE_CFL_URL, season)
-    SCHEDULE_PAGES_MAP = {
-        'BC': BC_SCHEDULE_PAGE,
-        'Calgary': CAL_SCHEDULE_PAGE,
-        'Edmonton': EDM_SCHEDULE_PAGE,
-        'Saskatchewan': SAS_SCHEDULE_PAGE,
-        'Winnipeg': WIN_SCHEDULE_PAGE,
-        'Hamilton': HAM_SCHEDULE_PAGE,
-        'Toronto': TOR_SCHEDULE_PAGE,
-        'Ottawa': OTT_SCHEDULE_PAGE,
-        'Montreal': MTL_SCHEDULE_PAGE
+    SCHEDULE_URL = '{0}/schedule/year/{1}/'.format(BASE_CFL_URL, season)
+    BC_TEAM_ID = '1'
+    CAL_TEAM_ID = '2'
+    EDM_TEAM_ID = '3'
+    SAS_TEAM_ID = '4'
+    WIN_TEAM_ID = '5'
+    HAM_TEAM_ID = '6'
+    TOR_TEAM_ID = '7'
+    OTT_TEAM_ID = '65'
+    MTL_TEAM_ID = '9'
+
+    schedule_pages_map = {
+        'BC': '{0}{1}'.format(SCHEDULE_URL, BC_TEAM_ID),
+        'Calgary': '{0}{1}'.format(SCHEDULE_URL, CAL_TEAM_ID),
+        'Edmonton': '{0}{1}'.format(SCHEDULE_URL, EDM_TEAM_ID),
+        'Saskatchewan': '{0}{1}'.format(SCHEDULE_URL, SAS_TEAM_ID),
+        'Winnipeg': '{0}{1}'.format(SCHEDULE_URL, WIN_TEAM_ID),
+        'Hamilton': '{0}{1}'.format(SCHEDULE_URL, HAM_TEAM_ID),
+        'Toronto': '{0}{1}'.format(SCHEDULE_URL, TOR_TEAM_ID),
+        'Ottawa': '{0}{1}'.format(SCHEDULE_URL, OTT_TEAM_ID),
+        'Montreal': '{0}{1}'.format(SCHEDULE_URL, MTL_TEAM_ID)
     }
 
-    schedule_pages_map = SCHEDULE_PAGES_MAP.copy()
+    # Ottawa's 2013 page doesn't exist
     if season == '2013':
         schedule_pages_map.pop('Ottawa', None)
 
