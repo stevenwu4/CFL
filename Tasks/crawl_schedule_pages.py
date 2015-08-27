@@ -115,9 +115,8 @@ def collect_pbps_for_teams(season):
         path_to_city_dir = os.path.join(SAVED_PATH, city)
         path_to_schedule_page = os.path.join(path_to_city_dir, 'schedule.html')
         all_game_urls = get_game_urls_from_schedule_page(path_to_schedule_page)
-        for i, url in enumerate(all_game_urls):
+        for i, url in enumerate(all_game_urls, start=1):
             # Adjust the counter, I want my games starting at 01 not 00
-            i += 1
             name = str(i)
             if len(name) == 1:
                 name = '0'+name
