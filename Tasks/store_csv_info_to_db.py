@@ -10,6 +10,7 @@ Usage:
     store_csv_info_to_db.py (--season=<sn>)
 """
 import os
+from md5 import md5
 from pymongo import MongoClient
 from datetime import datetime
 from docopt import docopt
@@ -30,18 +31,20 @@ def get_info_from_game(season, city, csv):
     away_city = list_of_game_rows[0][5]
     home_city = list_of_game_rows[0][6]
 
-    game_data['last_updated'] = datetime.today()
+    game_data['created_on'] = datetime.today()
     game_data['away_team_info']['city'] = away_city
     game_data['home_team_info']['city'] = home_city
     game_data['list_of_game_rows'] = list_of_game_rows
-    game_data['game_id'] = csv + '_' + away_city + '_' + home_city
+
+    game_rows_as_text = ''.join([''.join(row) for row in list_of_game_rows])
+    game_data['game_id'] = md5(game_rows_as_text).hexdigest()
 
     return game_data
 
 
 def run_storage_of_games_on_season(season, list_of_cities):
     client = MongoClient()
-    season_db = client['CFL_'+season]
+    season_db = client['CFL_' + season]
     games_collection = season_db['games']
 
     for city in list_of_cities:
@@ -53,7 +56,7 @@ def run_storage_of_games_on_season(season, list_of_cities):
         for csv in all_csvs:
             game_data = get_info_from_game(season, city, csv)
             saved_game = games_collection.find_one(
-                {'list_of_game_rows': game_data['list_of_game_rows']}
+                {'game_id': game_data['game_id']}
             )
             if not saved_game:
                 games_collection.insert(game_data)
